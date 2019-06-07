@@ -2,13 +2,14 @@
 
 namespace App;
 
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use EntrustUserTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -29,11 +30,22 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * Relationships
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function patient(){
+        return $this->hasOne('App\Patient');
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany('App\Appointment');
+    }
+
+    public function prescriptions()
+    {
+        return $this->hasMany('App\Prescription');
+    }
+    public function employee(){
+        return $this->hasOne('App\Employee');
+    }
 }

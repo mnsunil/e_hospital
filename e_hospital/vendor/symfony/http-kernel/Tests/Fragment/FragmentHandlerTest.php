@@ -32,7 +32,7 @@ class FragmentHandlerTest extends TestCase
         $this->requestStack
             ->expects($this->any())
             ->method('getCurrentRequest')
-            ->willReturn(Request::create('/'))
+            ->will($this->returnValue(Request::create('/')))
         ;
     }
 
@@ -79,7 +79,7 @@ class FragmentHandlerTest extends TestCase
         $renderer
             ->expects($this->any())
             ->method('getName')
-            ->willReturn('foo')
+            ->will($this->returnValue('foo'))
         ;
         $e = $renderer
             ->expects($this->any())
@@ -88,7 +88,7 @@ class FragmentHandlerTest extends TestCase
         ;
 
         if ($arguments) {
-            $e->with(...$arguments);
+            \call_user_func_array([$e, 'with'], $arguments);
         }
 
         $handler = new FragmentHandler($this->requestStack);

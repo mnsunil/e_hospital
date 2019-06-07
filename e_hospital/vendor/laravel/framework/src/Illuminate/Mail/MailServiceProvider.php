@@ -5,7 +5,6 @@ namespace Illuminate\Mail;
 use Swift_Mailer;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Swift_DependencyContainer;
 use Illuminate\Support\ServiceProvider;
 
 class MailServiceProvider extends ServiceProvider
@@ -25,7 +24,9 @@ class MailServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerSwiftMailer();
+
         $this->registerIlluminateMailer();
+
         $this->registerMarkdownRenderer();
     }
 
@@ -36,20 +37,18 @@ class MailServiceProvider extends ServiceProvider
      */
     protected function registerIlluminateMailer()
     {
-        $this->app->singleton('mailer', function () {
-            $config = $this->app->make('config')->get('mail');
+        $this->app->singleton('mailer', function ($app) {
+            $config = $app->make('config')->get('mail');
 
             // Once we have create the mailer instance, we will set a container instance
             // on the mailer. This allows us to resolve mailer classes via containers
             // for maximum testability on said classes instead of passing Closures.
             $mailer = new Mailer(
-                $this->app['view'],
-                $this->app['swift.mailer'],
-                $this->app['events']
+                $app['view'], $app['swift.mailer'], $app['events']
             );
 
-            if ($this->app->bound('queue')) {
-                $mailer->setQueue($this->app['queue']);
+            if ($app->bound('queue')) {
+                $mailer->setQueue($app['queue']);
             }
 
             // Next we will set all of the global addresses on this mailer, which allows
@@ -92,14 +91,8 @@ class MailServiceProvider extends ServiceProvider
         // Once we have the transporter registered, we will register the actual Swift
         // mailer instance, passing in the transport instances, which allows us to
         // override this transporter instances during app start-up if necessary.
-        $this->app->singleton('swift.mailer', function () {
-            if ($domain = $this->app->make('config')->get('mail.domain')) {
-                Swift_DependencyContainer::getInstance()
-                                ->register('mime.idgenerator.idright')
-                                ->asValue($domain);
-            }
-
-            return new Swift_Mailer($this->app['swift.transport']->driver());
+        $this->app->singleton('swift.mailer', function ($app) {
+            return new Swift_Mailer($app['swift.transport']->driver());
         });
     }
 
@@ -110,8 +103,8 @@ class MailServiceProvider extends ServiceProvider
      */
     protected function registerSwiftTransport()
     {
-        $this->app->singleton('swift.transport', function () {
-            return new TransportManager($this->app);
+        $this->app->singleton('swift.transport', function ($app) {
+            return new TransportManager($app);
         });
     }
 
@@ -128,10 +121,10 @@ class MailServiceProvider extends ServiceProvider
             ], 'laravel-mail');
         }
 
-        $this->app->singleton(Markdown::class, function () {
-            $config = $this->app->make('config');
+        $this->app->singleton(Markdown::class, function ($app) {
+            $config = $app->make('config');
 
-            return new Markdown($this->app->make('view'), [
+            return new Markdown($app->make('view'), [
                 'theme' => $config->get('mail.markdown.theme', 'default'),
                 'paths' => $config->get('mail.markdown.paths', []),
             ]);
