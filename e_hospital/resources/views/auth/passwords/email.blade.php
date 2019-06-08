@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>e-vuze reset</title>
-<link href="{{asset('images/favicon.png')}}" rel="icon" type="image/png">
-<link href="{{asset('images/favicon.ico')}}" rel="shortcut icon">
+<title>e-Hospital reset</title>
+<link href="{{asset('images/favicon_hospital.png')}}" rel="icon" type="image/png">
+<link href="{{asset('images/favicon_hospital.ico')}}" rel="shortcut icon">
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>

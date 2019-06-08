@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>e-vuze - Sign In</title>
-<link href="{{asset('images/favicon.ico')}}" rel="icon" type="image/png">
-<link href="{{asset('images/favicon.ico')}}" rel="shortcut icon">
+<title>e-Hospital ||  Sign In</title>
+<link href="{{asset('images/favicon_hospital.ico')}}" rel="icon" type="image/png">
+<link href="{{asset('images/favicon_hospital.ico')}}" rel="shortcut icon">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

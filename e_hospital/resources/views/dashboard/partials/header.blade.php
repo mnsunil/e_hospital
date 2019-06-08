@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>e-vuze | dashboard</title>
-<link href="{{asset('images/favicon.ico')}}" rel="icon" type="image/png">
-<link href="{{asset('images/favicon.ico')}}" rel="shortcut icon">
+<title>e-Hospital || dashboard</title>
+<!--<link href="{{asset('images/favicon(4).ico')}}" rel="icon" type="image/png">-->
+<link href="{{asset('images/favicon_hospital.ico')}}" rel="shortcut icon">
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -32,8 +32,8 @@
 <div class="container-fluid">
 
 <a href="#" class="site-logo">
-<img class="hidden-md-down" src="{{asset('images/logo.svg')}}" alt=""><span style="text-size:5em;font-weight: bold">E-VUZE</span>&nbsp;
-<img class="hidden-lg-up" src="{{asset('images/logo.svg')}}" alt="">
+<img class="hidden-md-down" src="{{asset('images/oooo.plus_38.png')}}" alt=""><span style="text-size:5em;font-weight: bold">Smart Health System</span>&nbsp;
+<img class="hidden-lg-up" src="{{asset('images/oooo.plus_38.png')}}" alt="">
 </a>
 
 <button id="show-hide-sidebar-toggle" class="show-hide-sidebar">
@@ -61,7 +61,7 @@ Notifications
 <img src="{{asset('dashboard/img/avatar-2-64.png')}}" alt="">
 </div>
 <div class="dot"></div>
-<a href="#">{{ Auth::user()->names }}</a> welcome to e-vuze 
+<a href="#">{{ Auth::user()->names }}</a> welcome to Smart Health System
 <div class="color-blue-grey-lighter">{{ Auth::user()->created_at->diffForHumans() }}</div>
 </div>
 </div>
