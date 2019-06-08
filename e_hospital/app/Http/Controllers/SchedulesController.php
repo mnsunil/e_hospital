@@ -22,7 +22,9 @@ class SchedulesController extends Controller
        // return view('dashboard.doctor.scheduler')->with(['events'=>$appointments]);
 
         $event = [];
+        $calendar = '';
         $appointments = Appointment::all();
+        
         foreach($appointments as $appointment){
          $event = Calendar::event(
             $appointment->patient->user->names,
@@ -51,7 +53,7 @@ class SchedulesController extends Controller
         //         'start' =>$appointment->date,
         //         ]);
         // }
-        return view('dashboard.doctor.scheduler')->with(['calendar'=>$calendar]);
+        return view('dashboard.doctor.scheduler')->with(['calendar'=>$calendar, 'appointments' => $appointments]);
     }
 
 

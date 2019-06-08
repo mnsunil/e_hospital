@@ -5,60 +5,59 @@
 @endpush
 @section('content')
 
-	<div class="page-content">
-		<div class="container-fluid">
+<div class="page-content">
+    <div class="container-fluid">
+        @if($calendar != '')
+        <div class="box-typical">
+            <div class="calendar-page">
+                <div class="calendar-page-content">
+                    <div class="calendar-page-title">Calendar</div>
+                    <div class="calendar-page-content-in">
+                       
+                        <div id="calendar">
 
-			<div class="box-typical">
-				<div class="calendar-page">
-					<div class="calendar-page-content">
-						<div class="calendar-page-title">Calendar</div>
-						<div class="calendar-page-content-in">
-						 {!! $calendar->calendar() !!}
-                         {!! $calendar->script() !!}
-						</div>
-					</div><!--.calendar-page-content-->
-                     
-					<div class="calendar-page-side">
-						<section class="calendar-page-side-section">
-							<div class="calendar-page-side-section-in">
-								<div id="side-datetimepicker"></div>
-							</div>
-						</section>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                var events = [];
+                                @foreach($appointments as $appointment)
+                                events.push({
+                                    "id": 1,
+                                    title: '{{ $appointment->patient->user->names }}',
+                                    start: '2019-06-08', // will be parsed
+                                });
+                                @endforeach
+                                $('#calendar').fullCalendar(
+                                        {
+                                            "header": {"left": "prev,next today", "center": "title", "right": "month,agendaWeek,agendaDay"},
+                                            "eventLimit": true,
+                                            "firstDay": 1,
+                                            "events": events
+                                        });
+                            });
+                        </script>
+                    </div>
+                </div><!--.calendar-page-content-->
 
-						<section class="calendar-page-side-section">
-							<header class="box-typical-header-sm">Today Appointment</header>
-							<div class="calendar-page-side-section-in">
-								<ul class="exp-timeline">
-									<li class="exp-timeline-item">
-										<div class="dot"></div>
-										<div>10:00</div>
-										<div class="color-blue-grey">Name Surname Patient Surgey ACL left knee</div>
-									</li>
-									<li class="exp-timeline-item">
-										<div class="dot"></div>
-										<div>10:00</div>
-										<div class="color-blue-grey">Name Surname Patient Surgey ACL left knee</div>
-									</li>
-								</ul>
-							</div>
-						</section>
+                <div class="calendar-page-side">
+                    <section class="calendar-page-side-section">
+                        <div class="calendar-page-side-section-in">
+                            <div id="side-datetimepicker"></div>
+                        </div>
+                    </section>
 
-						<section class="calendar-page-side-section">
-							<header class="box-typical-header-sm">Filters</header>
-							<div class="calendar-page-side-section-in">
-								<ul class="colors-guide-list">
-									<li>
-										<div class="color-double green"><div></div></div>
-										Appointments
-									</li>
-								</ul>
-							</div>
-						</section>
-					</div><!--.calendar-page-side-->
-				</div><!--.calendar-page-->
-			</div><!--.box-typical-->
-		</div><!--.container-fluid-->
-	</div><!--.page-content-->
+                </div><!--.calendar-page-side-->
+            </div><!--.calendar-page-->
+        </div><!--.box-typical-->
+        @else
+        <div class="row">
+            <div class="col-md-12">
+                No Schedules Found
+            </div>
+        </div>
+        @endif
+    </div><!--.container-fluid-->
+</div><!--.page-content-->
 
 
 
@@ -77,113 +76,113 @@
 <script src="{{asset('dashboard/js/lib/fullcalendar/fullcalendar-init.js')}}"></script>
 <script src="{{asset('dashboard/js/app.js')}}"></script>
 <script>
-$(function () {
-$(".profile-card-slider").slick({
-slidesToShow: 1,
-adaptiveHeight: true,
-prevArrow: '<i class="slick-arrow font-icon-arrow-left"></i>',
-nextArrow: '<i class="slick-arrow font-icon-arrow-right"></i>'
-});
+                             $(function () {
+                                 $(".profile-card-slider").slick({
+                                     slidesToShow: 1,
+                                     adaptiveHeight: true,
+                                     prevArrow: '<i class="slick-arrow font-icon-arrow-left"></i>',
+                                     nextArrow: '<i class="slick-arrow font-icon-arrow-right"></i>'
+                                 });
 
-var postsSlider = $(".posts-slider");
+                                 var postsSlider = $(".posts-slider");
 
-postsSlider.slick({
-slidesToShow: 4,
-adaptiveHeight: true,
-arrows: false,
-responsive: [
-{
-breakpoint: 1700,
-settings: {
-slidesToShow: 3
-}
-},
-{
-breakpoint: 1350,
-settings: {
-slidesToShow: 2
-}
-},
-{
-breakpoint: 992,
-settings: {
-slidesToShow: 3
-}
-},
-{
-breakpoint: 768,
-settings: {
-slidesToShow: 2
-}
-},
-{
-breakpoint: 500,
-settings: {
-slidesToShow: 1
-}
-}
-]
-});
+                                 postsSlider.slick({
+                                     slidesToShow: 4,
+                                     adaptiveHeight: true,
+                                     arrows: false,
+                                     responsive: [
+                                         {
+                                             breakpoint: 1700,
+                                             settings: {
+                                                 slidesToShow: 3
+                                             }
+                                         },
+                                         {
+                                             breakpoint: 1350,
+                                             settings: {
+                                                 slidesToShow: 2
+                                             }
+                                         },
+                                         {
+                                             breakpoint: 992,
+                                             settings: {
+                                                 slidesToShow: 3
+                                             }
+                                         },
+                                         {
+                                             breakpoint: 768,
+                                             settings: {
+                                                 slidesToShow: 2
+                                             }
+                                         },
+                                         {
+                                             breakpoint: 500,
+                                             settings: {
+                                                 slidesToShow: 1
+                                             }
+                                         }
+                                     ]
+                                 });
 
-$('.posts-slider-prev').click(function(){
-postsSlider.slick('slickPrev');
-});
+                                 $('.posts-slider-prev').click(function () {
+                                     postsSlider.slick('slickPrev');
+                                 });
 
-$('.posts-slider-next').click(function(){
-postsSlider.slick('slickNext');
-});
+                                 $('.posts-slider-next').click(function () {
+                                     postsSlider.slick('slickNext');
+                                 });
 
-/* ==========================================================================
-Recomendations slider
-========================================================================== */
+                                 /* ==========================================================================
+                                  Recomendations slider
+                                  ========================================================================== */
 
-var recomendationsSlider = $(".recomendations-slider");
+                                 var recomendationsSlider = $(".recomendations-slider");
 
-recomendationsSlider.slick({
-slidesToShow: 4,
-adaptiveHeight: true,
-arrows: false,
-responsive: [
-{
-breakpoint: 1700,
-settings: {
-slidesToShow: 3
-}
-},
-{
-breakpoint: 1350,
-settings: {
-slidesToShow: 2
-}
-},
-{
-breakpoint: 992,
-settings: {
-slidesToShow: 3
-}
-},
-{
-breakpoint: 768,
-settings: {
-slidesToShow: 2
-}
-},
-{
-breakpoint: 500,
-settings: {
-slidesToShow: 1
-}
-}
-]
-});
+                                 recomendationsSlider.slick({
+                                     slidesToShow: 4,
+                                     adaptiveHeight: true,
+                                     arrows: false,
+                                     responsive: [
+                                         {
+                                             breakpoint: 1700,
+                                             settings: {
+                                                 slidesToShow: 3
+                                             }
+                                         },
+                                         {
+                                             breakpoint: 1350,
+                                             settings: {
+                                                 slidesToShow: 2
+                                             }
+                                         },
+                                         {
+                                             breakpoint: 992,
+                                             settings: {
+                                                 slidesToShow: 3
+                                             }
+                                         },
+                                         {
+                                             breakpoint: 768,
+                                             settings: {
+                                                 slidesToShow: 2
+                                             }
+                                         },
+                                         {
+                                             breakpoint: 500,
+                                             settings: {
+                                                 slidesToShow: 1
+                                             }
+                                         }
+                                     ]
+                                 });
 
-$('.recomendations-slider-prev').click(function() {
-recomendationsSlider.slick('slickPrev');
-});
+                                 $('.recomendations-slider-prev').click(function () {
+                                     recomendationsSlider.slick('slickPrev');
+                                 });
 
-$('.recomendations-slider-next').click(function(){
-recomendationsSlider.slick('slickNext');
-});
-});
+                                 $('.recomendations-slider-next').click(function () {
+                                     recomendationsSlider.slick('slickNext');
+                                 });
+                             });
 </script>
 @endpush

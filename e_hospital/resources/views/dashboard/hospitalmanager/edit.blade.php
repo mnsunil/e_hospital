@@ -26,9 +26,8 @@
 	<fieldset class="form-group">
 		<label class="form-label semibold" for="manager">Manager Name</label>
 		<select name="manager" class="form-control" id="manager">
-			<option value="{{ $manager->user->id}}">{{$manager->user->names}}</option>
 			@foreach($users as $user)
-			<option value="{{$user->id}}">{{$user->names}}</option>
+			<option value="{{$user->id}}" {{ ($user->id == $manager->user->id?'selected':'') }}>{{$user->names}}</option>
 			@endforeach
 		</select>
 	</fieldset>
@@ -37,9 +36,8 @@
 	<fieldset class="form-group">
 		<label class="form-label semibold" for="hospital">Hospital Name</label>
 		<select name="hospital" class="form-control" id="hospital">
-			<option value="{{ $manager->hospital->id}}">{{$manager->hospital->name}}</option>
 			@foreach($hospitals as $hospital)
-			<option value="{{$hospital->id}}">{{$hospital->name}}</option>
+			<option value="{{$hospital->id}}" {{ ($hospital->id == $manager->hospital->id?'selected':'') }}>{{$hospital->name}}</option>
 			@endforeach
 		</select>
 	</fieldset>

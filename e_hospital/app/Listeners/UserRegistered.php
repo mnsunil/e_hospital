@@ -31,7 +31,7 @@ class UserRegistered
         //Redis::set($event->user->names,$event->user);
         $userRole = Role::where('name','user')->first();
         //attach regular user Role to newely Created User
-        $event->user->attachRole($userRole);
+        //$event->user->attachRole($userRole);
 
     }
 }

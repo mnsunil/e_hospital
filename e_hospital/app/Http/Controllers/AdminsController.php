@@ -20,6 +20,7 @@ class AdminsController extends Controller
     	$managers = $users->filter(function($user){
     		return $user->hasRole('admin');
     	});
+        
         return view('dashboard.hospitalmanager.index',['managers'=>$managers]);
     }
 
@@ -36,7 +37,7 @@ class AdminsController extends Controller
 	// 		return !$employee->user->hasRole('admin');
 	// 	});
 	// });
-	// dd($hospitals);
+	//dd($hospitals);
 	$users	   = User::all();
 	$users     = $users->filter(function($user){
 		return !$user->hasRole('admin') && !$user->hasRole('superuser');

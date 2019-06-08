@@ -8,6 +8,9 @@ use Auth;
 use Mail;
 use App\Patient;
 use App\Appointment;
+use App\District;
+use App\Province;
+use App\Sector;
 
 class PatientsController extends Controller
 {
@@ -18,9 +21,13 @@ class PatientsController extends Controller
      */
     public function index(Request $request)
     {
+        $districts = District::all();
+        $provinces = Province::all();
+        $sectors = Sector::all();
+        
         $patient = Patient::where('id', $request->user()->id)->first();
         return view('dashboard.patients.index')
-        ->with(['patients'=>$patient]);
+        ->with(['patients'=>$patient, 'districts' => $districts, 'provinces' => $provinces, 'sectors' => $sectors]);
     }
 
     /**
@@ -30,6 +37,7 @@ class PatientsController extends Controller
      */
     public function create()
     {
+        
         return view('dashboard.patients.create');
     }
 

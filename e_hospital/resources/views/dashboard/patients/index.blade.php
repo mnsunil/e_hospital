@@ -75,9 +75,11 @@
 <div class="form-group row">
 	<label for="province" class="col-sm-2 form-control-label">Province/City</label>
 	<div class="col-sm-3">
-		<select name="province_id" id="province" class="form-control {{ $errors->has('province_id') ? 'form-control-error' : '' }}" v-model="province_id" @change="fetchDistrict()">
+		<select name="province_id" id="province" class="form-control {{ $errors->has('province_id') ? 'form-control-error' : '' }}">
 			<option value="">Select</option>
-			<option v-for="province in provinces" v-bind:value="province.id">@{{ province.province_name }}</option>
+                        @foreach($provinces as $province)
+			<option value="{{ $province->id }}">{{ $province->province_name }}</option>
+                        @endforeach
 		</select>
 			@if ($errors->has('province_id'))
 			<span class="help-block">
@@ -91,7 +93,9 @@
 	<div class="col-sm-3">
 		<select name="district_id" id="district" class="form-control {{ $errors->has('district_id') ? 'form-control-error' : '' }}" v-model="district_id" @change="fetchSector()">
 			<option value="">Select</option>
-			<option v-for="district in districts" v-bind:value="district.id">@{{district.district_name}}</option>
+			@foreach($districts as $district)
+			<option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                        @endforeach
 		</select>
 			@if ($errors->has('district_id'))
 			<span class="help-block">
@@ -105,8 +109,9 @@
 	<div class="col-sm-3">
 		<select name="sector_id" id="sector" class="form-control {{ $errors->has('sector_id') ? 'form-control-error' : '' }}">
 			<option value="">Select</option>
-			<option v-for="sector in sectors" v-bind:value="sector.id">@{{sector.sector_name}}</option>
-		</select>
+			@foreach($sectors as $sector)
+			<option value="{{ $sector->id }}">{{ $sector->sector_name }}</option>
+                        @endforeach
 			@if ($errors->has('sector_id'))
 			<span class="help-block">
 			<strong>{{ $errors->first('sector_id') }}</strong>
@@ -137,30 +142,6 @@
 <script src="{{asset("dashboard/js/lib/select2/select2.full.min.js")}}"></script>
 <script src="{{asset("dashboard/js/lib/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js")}}"></script>
 <script>
-new Vue({
-	el:'#app',
-	data:{
-		provinces :[],
-		province_id:'',
-		districts :[],
-		district_id:'',
-		sectors :[],
-
-	},
-	methods:{
-		fetchDistrict(){
-			axios.get('/api/districts/'+this.province_id).then(response => this.districts = response.data);
-		},
-		fetchSector(){
-			axios.get('/api/sectors/'+this.district_id).then(response => this.sectors = response.data);
-		}
-	}
-	,
-	mounted(){
-		axios.get('/api/provinces').then(response => this.provinces = response.data);
-	}
-
-})
 $(document).ready(function() {
 	//retrieve province data from internet with axios
 
